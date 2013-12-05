@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pretext
+    lang="pt"
+    dir="textos"
+    log="pretext.log"
+    silence="off">
+
+    <maid>
+        <number/>
+        <html/>
+        <simbols/>
+        <stoplist dir="stoplist">
+            <stopfile>port.xml</stopfile>
+            <stopfile>ingl.xml</stopfile>
+        </stoplist>
+        <stemming dir="steminfo"/>
+    </maid>
+
+    <ngram dir="ngraminfo">
+        <gram n="1"/>
+        <gram n="1"/>
+        <gram n="1"/>
+    </ngram>
+
+    <report
+        ngramdir="ngraminfo"
+        discover="discover"
+        graphics="graphics"
+        taxonomy="taxonomia.txt"
+        transpose="disabled">
+
+        <gram n="1"
+            max="500"
+            min="5"
+            measure="tf"
+            smooth="disabled"/>
+        <gram n="1"
+            maxfiles="100"
+            minfiles="5"
+            measure="tfidf"
+            normalize="qua"
+            normalizetype="c"/>
+        <gram n="1"
+            std_dev="0.5"
+            measure="tflinear"
+            smooth="enabled"
+            normalize="lin"
+            normalizetype="l"/>
+    </report>
+</pretext>
+

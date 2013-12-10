@@ -28,9 +28,9 @@ public class PretextExecutor {
        int min;
        int ngram;
 
-        for (int i = 0; i < 4; i++) {
-            min = 5 * (i + 1);
-            for (int j = 0; j < 3; j++) {
+        for (int i = 1; i < 8; i++) {
+            min =  (i + 1);
+            for (int j = 0; j < 1; j++) {
                 ngram = (j + 1);
                 converteArquivoConfiguracao(ngram, min);
                 executaPrograma("perl Start.pl", "saida.txt", "erro.txt");

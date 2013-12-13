@@ -25,39 +25,45 @@ public class PretextExecutor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       int min;
-       int ngram;
+        int min;
+        int ngram;
+        int minFiles;
+        int numeroArquivos;
+        int numeroClasses;
+        String nomeTeste;
 
-        for (int i = 1; i < 8; i++) {
-            min =  (i + 1);
-            for (int j = 0; j < 1; j++) {
-                ngram = (j + 1);
-                converteArquivoConfiguracao(ngram, min);
-                executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
-                String diretorio = System.getProperty("user.dir");
-                diretorio += "/discover/";
-                executaPrograma("java -jar " + diretorio + "PretextTOWeka.jar " + ngram + "gram" + min + ".arff " + diretorio, "saida2.txt", "erro2.txt");
-                //System.out.println("java -jar " + diretorio + "PretextToWeka.jar " + ngram + "gram" + min + ".arff " + diretorio);
+        if (args.length < 1) {
+            System.out.println("Falta passar parametros");
+            // System.exit(1);
+        }
+
+        nomeTeste = args.length > 0 ? args[0] : "DefaultName";
+        numeroArquivos = args.length > 1 ? Integer.valueOf(args[1]) : 20;
+        numeroClasses = args.length > 2 ? Integer.valueOf(args[2]) : 2;
+        System.out.println("Passei pelos argumentos");
+        for (int i = 3; i < 7; i++) {
+            minFiles = i * ((numeroArquivos / numeroClasses) / 10);
+            for (min = 2; min < 8; min++) {
+                for (ngram = 1; ngram < 2; ngram++) {
+                    converteArquivoConfiguracao(ngram, min, minFiles);
+                    executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
+                    String diretorio = System.getProperty("user.dir");
+                    diretorio += "/discover/";
+                    String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeTeste + ngram + "gram" + min + "min" + minFiles + "minfiles" + ".arff " + diretorio;
+                    executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
+                    //System.out.println(comando);
+                }
             }
         }
-//        System.out.println("Executando o primeiro comando");
-//        executaPrograma("java -jar LS.jar", "saida1.txt", "erro1.txt");
-//        System.out.println("Executando o segundo comando");
-//        String diretorio = System.getProperty("user.dir");
-//        diretorio += "/Teste2/";
-//        // executaPrograma("java -jar " + diretorio + "/Teste2/LS.jar", "saida2.txt", "erro2.txt");
-//        System.out.println("java -jar " + diretorio + "LS.jar " + diretorio);
-//        executaPrograma("java -jar " + diretorio + "LS.jar " + diretorio, "saida2.txt", "erro2.txt");
     }
 
-    private static void converteArquivoConfiguracao(int nrGrams, int min) {
+    private static void converteArquivoConfiguracao(int nrGrams, int min, int minFiles) {
 
         try {
             String arquivoConfiguracao = lerArquivo("config.xml");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("min=\"[0-9]+\"", "min=\"" + min + "\"");
-            // System.out.println(arquivoConfiguracao);
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
-            // System.out.println("***********************************");
+            arquivoConfiguracao = arquivoConfiguracao.replaceAll("minfiles=\"[0-9]+\"", "minfiles=\"" + minFiles + "\"");
             // System.out.println(arquivoConfiguracao);
 
             printFile("config.xml", arquivoConfiguracao);
@@ -82,11 +88,8 @@ public class PretextExecutor {
 
     public static void printFile(String fileName, String texto) throws IOException {
         try (FileWriter fw = new FileWriter(fileName); BufferedWriter bw = new BufferedWriter(fw)) {
-
             bw.write(texto);
-
             bw.newLine();
-
             bw.close();
             fw.close();
         }
@@ -106,9 +109,7 @@ public class PretextExecutor {
 
             Runtime rt = Runtime.getRuntime();
             Process proc = rt.exec(comando);
-            //Process proc = rt.exec("java -cp weka.jar weka.classifiers.misc.HyperPipes -x 10 -t 50reuter4GRAM_tf.arff > teste.txt");
-            //Process proc = rt.exec("java -cp weka.jar weka.classifiers.misc.HyperPipes -x 10 -t 50reuter4GRAM_tf.arff");
-            // Process proc = rt.exec("perl Start.pl");
+
             // any error message?
             StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR", fosError);
 
@@ -124,7 +125,7 @@ public class PretextExecutor {
             System.out.println("ExitValue: " + exitVal);
             // fos.flush();
             // fos.close();        
-        } catch (Throwable t) {
+        } catch (IOException | InterruptedException t) {
             t.printStackTrace();
         }
     }

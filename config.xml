@@ -10,7 +10,7 @@
         <html/>
         <simbols/>
         <stoplist dir="stoplist">
-            <!-- <stopfile>port.xml</stopfile> -->
+           
             <stopfile>ingl.xml</stopfile>
         </stoplist>
         <stemming dir="steminfo"/>
@@ -18,8 +18,7 @@
 
     <ngram dir="ngraminfo">
         <gram n="1"/>
-        <!-- <gram n="1"/>
-        <gram n="1"/> -->
+        
     </ngram>
 
     <report
@@ -35,18 +34,7 @@
             minfiles="5"
             measure="tf"
             smooth="disabled"/>
-      <!--   <gram n="1"
-            maxfiles="100"
-            minfiles="5"
-            measure="tfidf"
-            normalize="qua"
-            normalizetype="c"/>
-        <gram n="1"
-            std_dev="0.5"
-            measure="tflinear"
-            smooth="enabled"
-            normalize="lin"
-            normalizetype="l"/> -->
+      
     </report>
 </pretext>
 

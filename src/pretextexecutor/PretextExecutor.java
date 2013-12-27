@@ -12,6 +12,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,45 +29,77 @@ public class PretextExecutor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        String stopFile = "";
         int min;
         int ngram;
         int minFiles;
-        int numeroArquivos;
-        int numeroClasses;
-        String nomeTeste;
+        double numeroArquivos = 0.0;
+        double numeroClasses = 0.0;
+        String nomeTeste = "";
 
-        if (args.length < 1) {
-            System.out.println("Falta passar parametros");
-            // System.exit(1);
+        List<String> argumentos = new ArrayList<>();
+        argumentos.addAll(Arrays.asList(args));
+
+        if (args.length == 8) {
+            Iterator itr = argumentos.iterator();
+            while (itr.hasNext()) {
+                String argumento = (String) itr.next();
+                switch (argumento) {
+                    case "-h":
+                        ajuda();
+                        break;
+                    case "-s":
+                        stopFile = (String) itr.next();
+                        break;
+                    case "-a":
+                        numeroArquivos = Double.valueOf((String) itr.next());
+                        break;
+                    case "-c":
+                        numeroClasses = Double.valueOf((String) itr.next());
+                        break;
+                    case "-n":
+                        nomeTeste = (String) itr.next();
+                        break;
+                    default:
+                        System.out.println("Parametro incorreto: " + argumento);
+                        ajuda();
+                        System.exit(1);
+                        break;
+                }
+            }
+        } else {
+
+            System.out.println("Faltou passar algum parametro");
+            ajuda();
+            System.exit(1);
         }
 
-        nomeTeste = args.length > 0 ? args[0] : "DefaultName";
-        numeroArquivos = args.length > 1 ? Integer.valueOf(args[1]) : 20;
-        numeroClasses = args.length > 2 ? Integer.valueOf(args[2]) : 2;
-        System.out.println("Passei pelos argumentos");
-        for (int i = 3; i < 7; i++) {
-            minFiles = i * ((numeroArquivos / numeroClasses) / 10);
-            for (min = 2; min < 8; min++) {
-                for (ngram = 1; ngram < 2; ngram++) {
-                    converteArquivoConfiguracao(ngram, min, minFiles);
-                    executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
+        // imprimeArgumentos(numeroArquivos, numeroClasses, nomeTeste,stopFile);
+        for (double i = 1; i <= 10; i++) {
+            minFiles = (int) ((i / 100) * ((numeroArquivos / numeroClasses)));
+            for (min = 2; min <= 5; min++) {
+                for (ngram = 1; ngram <= 1; ngram++) {
+                    converteArquivoConfiguracao(ngram, min, minFiles,stopFile);
+                    //executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
                     String diretorio = System.getProperty("user.dir");
                     diretorio += "/discover/";
-                    String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeTeste + ngram + "gram" + min + "min" + minFiles + "minfiles" + ".arff " + diretorio;
-                    executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
-                    //System.out.println(comando);
+                    String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeTeste + stopFile + ngram + "gram" + min + "min" + minFiles + "minfiles" + ".arff " + diretorio;
+                    //executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
+                    // System.out.println(comando);
+                    System.out.println(nomeTeste + stopFile + ngram + "gram" + min + "min" + minFiles + "minfiles" + ".arff ");
                 }
             }
         }
     }
 
-    private static void converteArquivoConfiguracao(int nrGrams, int min, int minFiles) {
+    private static void converteArquivoConfiguracao(int nrGrams, int min, int minFiles, String stopfile) {
 
         try {
             String arquivoConfiguracao = lerArquivo("config.xml");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("min=\"[0-9]+\"", "min=\"" + min + "\"");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("minfiles=\"[0-9]+\"", "minfiles=\"" + minFiles + "\"");
+            arquivoConfiguracao = arquivoConfiguracao.replaceAll("<stopfile>[a-z]+.xml</stopfile>", "<stopfile>" + stopfile + ".xml</stopfile>");
             // System.out.println(arquivoConfiguracao);
 
             printFile("config.xml", arquivoConfiguracao);
@@ -128,6 +164,24 @@ public class PretextExecutor {
         } catch (IOException | InterruptedException t) {
             t.printStackTrace();
         }
+    }
+
+    private static void ajuda() {
+        System.out.println("-h = help");
+        System.out.println("Os tres proximos parametros sao obrigatorios");
+        System.out.println("-a = numero de arquivos");
+        System.out.println("-c = numero de classes");
+        System.out.println("-n = nome do arquivo");
+        System.out.println("-s = stopFile");
+
+    }
+
+    private static void imprimeArgumentos(double primeiro, double segundo, String terceiro, String quarto) {
+        System.out.println("numero de arquivos: " + primeiro);
+        System.out.println("numero de classes: " + segundo);
+        System.out.println("nome do arquivo: " + terceiro);
+        System.out.println("stopfile: " + quarto);
+        System.exit(0);
     }
 
 }

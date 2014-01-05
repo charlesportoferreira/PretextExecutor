@@ -31,7 +31,7 @@ public class PretextExecutor {
     public static void main(String[] args) {
         String stopFile = "";
         int min;
-        int ngram;
+        int ngram=12;
         int minFiles;
         double numeroArquivos = 0.0;
         double numeroClasses = 0.0;
@@ -75,18 +75,20 @@ public class PretextExecutor {
         }
 
         // imprimeArgumentos(numeroArquivos, numeroClasses, nomeTeste,stopFile);
-        for (double i = 1; i <= 10; i++) {
-            minFiles = (int) ((i / 100) * ((numeroArquivos / numeroClasses)));
-            for (min = 2; min <= 5; min++) {
-                for (ngram = 1; ngram <= 1; ngram++) {
-                    converteArquivoConfiguracao(ngram, min, minFiles,stopFile);
-                    //executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
+        for (double i = 1; i <= 5; i = i + 4) {
+            //minFiles = (int) ((i / 100) * ((numeroArquivos / numeroClasses)));
+            minFiles = (int)i;
+            for (min = 5; min <= 40; min = min + 5) {
+                for (ngram = 1; ngram <= 2; ngram++) {
+                    converteArquivoConfiguracao(ngram, min, minFiles, stopFile);
+                    executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
                     String diretorio = System.getProperty("user.dir");
                     diretorio += "/discover/";
-                    String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeTeste + stopFile + ngram + "gram" + min + "min" + minFiles + "minfiles" + ".arff " + diretorio;
-                    //executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
+                    String nomeArquivo = nomeTeste + "-" + stopFile + "-" + ngram + "gram" + "-" + min + "min" + "-" + minFiles + "minfiles" + ".arff";
+                    String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeArquivo + " " + diretorio;
+                    executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
                     // System.out.println(comando);
-                    System.out.println(nomeTeste + stopFile + ngram + "gram" + min + "min" + minFiles + "minfiles" + ".arff ");
+                    // System.out.println(nomeArquivo);
                 }
             }
         }
@@ -97,9 +99,9 @@ public class PretextExecutor {
         try {
             String arquivoConfiguracao = lerArquivo("config.xml");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("min=\"[0-9]+\"", "min=\"" + min + "\"");
-            arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
+          //  arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("minfiles=\"[0-9]+\"", "minfiles=\"" + minFiles + "\"");
-            arquivoConfiguracao = arquivoConfiguracao.replaceAll("<stopfile>[a-z]+.xml</stopfile>", "<stopfile>" + stopfile + ".xml</stopfile>");
+            arquivoConfiguracao = arquivoConfiguracao.replaceAll("<stopfile>[a-zA-Z]+.xml</stopfile>", "<stopfile>" + stopfile + ".xml</stopfile>");
             // System.out.println(arquivoConfiguracao);
 
             printFile("config.xml", arquivoConfiguracao);

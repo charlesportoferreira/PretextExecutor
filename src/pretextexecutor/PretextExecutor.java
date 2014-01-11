@@ -31,7 +31,7 @@ public class PretextExecutor {
     public static void main(String[] args) {
         String stopFile = "";
         int min;
-        int ngram=12;
+        int ngram = 12;
         int minFiles;
         double numeroArquivos = 0.0;
         double numeroClasses = 0.0;
@@ -75,11 +75,12 @@ public class PretextExecutor {
         }
 
         // imprimeArgumentos(numeroArquivos, numeroClasses, nomeTeste,stopFile);
-        for (double i = 1; i <= 5; i = i + 4) {
-            //minFiles = (int) ((i / 100) * ((numeroArquivos / numeroClasses)));
-            minFiles = (int)i;
+        for (double i = 0; i <= 20; i = i + 5) {
+            minFiles = (int) ((i / 100) * ((numeroArquivos / numeroClasses)));
+            minFiles = minFiles == 0 ? 1 : minFiles;
+            //minFiles = (int)i;
             for (min = 5; min <= 40; min = min + 5) {
-                for (ngram = 1; ngram <= 2; ngram++) {
+                for (ngram = 1; ngram <= 3; ngram++) {
                     converteArquivoConfiguracao(ngram, min, minFiles, stopFile);
                     executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
                     String diretorio = System.getProperty("user.dir");
@@ -99,9 +100,9 @@ public class PretextExecutor {
         try {
             String arquivoConfiguracao = lerArquivo("config.xml");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("min=\"[0-9]+\"", "min=\"" + min + "\"");
-          //  arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
+              arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("minfiles=\"[0-9]+\"", "minfiles=\"" + minFiles + "\"");
-            arquivoConfiguracao = arquivoConfiguracao.replaceAll("<stopfile>[a-zA-Z]+.xml</stopfile>", "<stopfile>" + stopfile + ".xml</stopfile>");
+            //arquivoConfiguracao = arquivoConfiguracao.replaceAll("<stopfile>[a-zA-Z]+.xml</stopfile>", "<stopfile>" + stopfile + ".xml</stopfile>");
             // System.out.println(arquivoConfiguracao);
 
             printFile("config.xml", arquivoConfiguracao);

@@ -17,7 +17,7 @@
     </maid>
 
     <ngram dir="ngraminfo">
-        <gram n="1"/>
+        <gram n="3"/>
         
     </ngram>
 
@@ -28,15 +28,135 @@
         taxonomy="taxonomia.txt"
         transpose="disabled">
 
-        <gram n="1"
+        <gram n="3"
             max="500"
-            min="2"
-            minfiles="5"
+            min="40"
+            minfiles="39"
             measure="tf"
             smooth="disabled"/>
       
     </report>
 </pretext>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

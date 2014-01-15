@@ -81,7 +81,7 @@ public class PretextExecutor {
             //minFiles = (int)i;
             for (min = 5; min <= 40; min = min + 5) {
                 for (ngram = 1; ngram <= 3; ngram++) {
-                    converteArquivoConfiguracao(ngram, min, minFiles, stopFile);
+                    converteArquivoConfiguracao(ngram, min, minFiles, stopFile, nomeTeste);
                     executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
                     String diretorio = System.getProperty("user.dir");
                     diretorio += "/discover/";
@@ -95,14 +95,15 @@ public class PretextExecutor {
         }
     }
 
-    private static void converteArquivoConfiguracao(int nrGrams, int min, int minFiles, String stopfile) {
+    private static void converteArquivoConfiguracao(int nrGrams, int min, int minFiles, String stopfile, String textos) {
 
         try {
             String arquivoConfiguracao = lerArquivo("config.xml");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("min=\"[0-9]+\"", "min=\"" + min + "\"");
-              arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
+            arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
             arquivoConfiguracao = arquivoConfiguracao.replaceAll("minfiles=\"[0-9]+\"", "minfiles=\"" + minFiles + "\"");
             //arquivoConfiguracao = arquivoConfiguracao.replaceAll("<stopfile>[a-zA-Z]+.xml</stopfile>", "<stopfile>" + stopfile + ".xml</stopfile>");
+            arquivoConfiguracao = arquivoConfiguracao.replaceAll("  dir=\"[0-9a-zA-Z]+\"", "  dir=\"" + textos + "\"");
             // System.out.println(arquivoConfiguracao);
 
             printFile("config.xml", arquivoConfiguracao);

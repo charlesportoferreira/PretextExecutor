@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pretextexecutor;
 
 import java.io.BufferedReader;
@@ -16,8 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import view.Configuracao;
 
 /**
  *
@@ -29,97 +23,97 @@ public class PretextExecutor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String stopFile = "";
-        int min;
-        int ngram = 12;
-        int minFiles;
-        double numeroArquivos = 0.0;
-        double numeroClasses = 0.0;
+
+        String diretorioStopList;
+        String[] stopFiles = null;
+        String[] ngrams = null;
+        String[] cortesFrequencia = null;
+        String[] cortesArquivos = null;
+        String[] calculoFrequencia = null;
+
         String nomeBaseDados = "";
 
-        List<String> argumentos = new ArrayList<>();
-        argumentos.addAll(Arrays.asList(args));
+        List<String> argumentos = new ArrayList<>(Arrays.asList(args));
+        List<Parametro> parametros = new ArrayList<>();
 
-        if (args.length == 8) {
-            Iterator itr = argumentos.iterator();
-            while (itr.hasNext()) {
-                String argumento = (String) itr.next();
-                switch (argumento) {
-                    case "-h":
-                        ajuda();
-                        break;
-                    case "-s":
-                        stopFile = (String) itr.next();
-                        break;
-                    case "-a":
-                        numeroArquivos = Double.valueOf((String) itr.next());
-                        break;
-                    case "-c":
-                        numeroClasses = Double.valueOf((String) itr.next());
-                        break;
-                    case "-n":
-                        nomeBaseDados = (String) itr.next();
-                        break;
-                    default:
-                        System.out.println("Parametro incorreto: " + argumento);
-                        ajuda();
-                        System.exit(1);
-                        break;
-                }
+        //if (args.length == 8) {
+        Iterator itr = argumentos.iterator();
+        while (itr.hasNext()) {
+            String argumento = (String) itr.next();
+            switch (argumento) {
+                case "-h":
+                    ajuda();
+                    break;
+                case "-sl":
+                    diretorioStopList = (String) itr.next();
+                    parametros.add(new Parametro("diretorioStopList", diretorioStopList));
+                    break;
+                case "-sf":
+                    stopFiles = ((String) itr.next()).split(",");
+                    break;
+                case "-b":
+                    nomeBaseDados = (String) itr.next();
+                    parametros.add(new Parametro("nomeBaseDados", nomeBaseDados));
+                    break;
+                case "-g":
+                    ngrams = ((String) itr.next()).split(",");
+                    break;
+                case "-mf":
+                    cortesFrequencia = ((String) itr.next()).split(",");
+                    break;
+                case "-ma":
+                    cortesArquivos = ((String) itr.next()).split(",");
+                    break;
+                case "-f":
+                    calculoFrequencia = ((String) itr.next()).split(",");
+                    break;
+                case "-v":
+                    callConfigurator();
+                    break;
+                default:
+                    System.out.println("Parametro incorreto: " + argumento);
+                    ajuda();
+                    System.exit(1);
+                    break;
             }
-        } else {
+            // }
+            //} else {
 
-            System.out.println("Faltou passar algum parametro");
-            ajuda();
-            System.exit(1);
+//            System.out.println("Faltou passar algum parametro");
+//            ajuda();
+//            System.exit(1);
         }
 
-        // imprimeArgumentos(numeroArquivos, numeroClasses, nomeTeste,stopFile);
-        List<String> stopfiles = new ArrayList<>();
-        stopfiles.add("Verbos");
-        stopfiles.add("Adverbios");
-        stopfiles.add("VerbosAdverbios");
-        stopfiles.add("VerbosIngles");
-        stopfiles.add("AdverbiosIngles");
-        stopfiles.add("AdverbiosVerbosIngles");
-        stopfiles.add("Ingl");
-        for (String stoplist : stopfiles) {
-            for (double i = 1; i <= 1; i = i + 5) {
-            //minFiles = (int) ((i / 100) * ((numeroArquivos / numeroClasses)));
-                //minFiles = minFiles == 0 ? 1 : minFiles;
-                minFiles = (int) i;
-                for (min = 1; min <= 1; min = min + 5) {
-                    for (ngram = 1; ngram <= 1; ngram++) {
-                        converteArquivoConfiguracao(ngram, min, minFiles, stoplist, nomeBaseDados);
-                        executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
-                        String diretorio = System.getProperty("user.dir");
-                        diretorio += "/discover/";
-                        String nomeArquivo = nomeBaseDados + "-" + stopFile + "-" + ngram + "gram" + "-" + min + "min" + "-" + minFiles + "minfiles" + ".arff";
-                        String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeArquivo + " " + diretorio;
-                        executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
-                    // System.out.println(comando);
-                        // System.out.println(nomeArquivo);
+        for (String cf : calculoFrequencia) {
+            parametros.add(new Parametro("cf", cf));
+           // imprimeParametros(calculoFrequencia);
+            for (String corteArquivo : cortesArquivos) {
+                parametros.add(new Parametro("corteArquivo", corteArquivo));
+                //imprimeParametros(cortesArquivos);
+                for (String corteFrequencia : cortesFrequencia) {
+                    parametros.add(new Parametro("corteFrequencia", corteFrequencia));
+                   // imprimeParametros(cortesFrequencia);
+                    for (String stopfile : stopFiles) {
+                        parametros.add(new Parametro("stopFile", stopfile));
+                        //imprimeParametros(stopFiles);
+                        for (String gram : ngrams) {
+                            parametros.add(new Parametro("gram", gram));
+                            //imprimeParametros(ngrams);
+                            //converteArquivoConfiguracao(ngram, min, minFiles, stoplist, nomeBaseDados);
+                            ArquivoConfiguracao ac = new ArquivoConfiguracao(parametros);
+                            //System.exit(0);
+                            executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
+                            String diretorio = System.getProperty("user.dir");
+                            diretorio += "/discover/";
+                            String nomeArquivo = nomeBaseDados + "--" + stopfile + "--" + gram + "gram" + "--" + corteFrequencia + "min" + "--" + corteArquivo + "minfiles" + ".arff";
+                            String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeArquivo + " " + diretorio;
+                            executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
+                            // System.out.println(comando);
+                            // System.out.println(nomeArquivo);
+                        }
                     }
                 }
             }
-        }
-    }
-
-    private static void converteArquivoConfiguracao(int nrGrams, int min, int minFiles, String stopfile, String textos) {
-
-        try {
-            String arquivoConfiguracao = lerArquivo("config.xml");
-            //arquivoConfiguracao = arquivoConfiguracao.replaceAll("min=\"[0-9]+\"", "min=\"" + min + "\"");
-            //arquivoConfiguracao = arquivoConfiguracao.replaceAll("gram n=\"[0-9]+\"", "gram n=\"" + nrGrams + "\"");
-            //arquivoConfiguracao = arquivoConfiguracao.replaceAll("minfiles=\"[0-9]+\"", "minfiles=\"" + minFiles + "\"");
-            arquivoConfiguracao = arquivoConfiguracao.replaceAll("<stopfile>[a-zA-Z]+.xml</stopfile>", "<stopfile>" + stopfile + ".xml</stopfile>");
-            arquivoConfiguracao = arquivoConfiguracao.replaceAll("  dir=\"[0-9a-zA-Z]+\"", "  dir=\"" + textos + "\"");
-            // System.out.println(arquivoConfiguracao);
-
-            printFile("config.xml", arquivoConfiguracao);
-        } catch (IOException ex) {
-            System.out.println("Erro na leitura ou escrita");
-            Logger.getLogger(PretextExecutor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -143,6 +137,33 @@ public class PretextExecutor {
             bw.close();
             fw.close();
         }
+    }
+
+    public static void callConfigurator() {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Configuracao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Configuracao().setVisible(true);
+            }
+        });
     }
 
     public static void executaPrograma(String comando, String arquivoSaida, String arquivoErro) {
@@ -188,6 +209,12 @@ public class PretextExecutor {
         System.out.println("-n = nome do arquivo");
         System.out.println("-s = stopFile");
 
+    }
+
+    private static void imprimeParametros(String[] Parametros) {
+        for (String parametro : Parametros) {
+            System.out.println(parametro);
+        }
     }
 
     private static void imprimeArgumentos(double primeiro, double segundo, String terceiro, String quarto) {

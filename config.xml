@@ -1,185 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf−8"?>
 <pretext
-    lang="pt"
-    dir="textos"
-    log="pretext.log"
-    silence="off">
+	lang="en"
+	dir="baseDados"
+	log="pretext.log"
+	silence="off">
 
-    <maid>
-        <number/>
-        <html/>
-        <simbols/>
-        <stoplist dir="stoplist">
-           
-            <stopfile>ingl.xml</stopfile>
-        </stoplist>
-        <stemming dir="steminfo"/>
-    </maid>
+	<maid>
+		<number/>
+		<html/>
+		<simbols/>
+		<stoplist dir="pastaStoplist">
+			<stopfile>verbos.xml</stopfile>
+		</stoplist>
+		<stemming dir="steminfo"/>
+	</maid>
 
-    <ngram dir="ngraminfo">
-        <gram n="3"/>
-        
-    </ngram>
+	<ngram dir="ngraminfo">
+		<gram n="1"/>
+		<gram n="2"/>
+	</ngram>
 
-    <report
-        ngramdir="ngraminfo"
-        discover="discover"
-        graphics="graphics"
-        taxonomy="taxonomia.txt"
-        transpose="disabled">
+	<report
+		ngramdir="ngraminfo"
+		discover="discover"
+		graphics="graphics"
+		taxonomy="taxonomia.txt"
+		transpose="disabled">
 
-        <gram n="3"
-            max="500"
-            min="40"
-            minfiles="39"
-            measure="tf"
-            smooth="disabled"/>
-      
-    </report>
+		<gram n="1"
+			measure="tf"
+			smooth="disabled"
+		/>
+		<gram n="2"
+			measure="tf"
+			smooth="disabled"
+		/>
+
+	</report>
 </pretext>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

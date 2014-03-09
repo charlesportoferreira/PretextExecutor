@@ -51,7 +51,7 @@ public class ArquivoConfiguracao {
         }
 
         //configura base de dados
-        arquivoConfiguracao = arquivoConfiguracao.replace("\tdir=\"textos\"\n", getExpressaoBaseDados(nomeBaseDados));
+        arquivoConfiguracao = arquivoConfiguracao.replace("\t dir=\"textos\"\n", getExpressaoBaseDados(nomeBaseDados));
 
         //configura diretorio stoplist
         arquivoConfiguracao = arquivoConfiguracao.replace("\t\t<stoplist dir=\"stoplist\">\n",
@@ -102,9 +102,13 @@ public class ArquivoConfiguracao {
         String minFreq = "";
         String maxFreq = "";
         String gram = "";
+        String corteDesvioPadrao = "";
 
         for (Parametro parametro : parametros) {
             switch (parametro.getNome()) {
+                case "desvio":
+                    corteDesvioPadrao = parametro.getValor();
+                    break;
                 case "cf":
                     termoFrequencia = parametro.getValor();
                     break;
@@ -126,6 +130,7 @@ public class ArquivoConfiguracao {
         if (Integer.valueOf(gram) < 10) {
             expressaoDetalhesNGram = "\t\t<gram n=\"" + gram + "\"\n";
             expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
+            expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
             expressaoDetalhesNGram += getExpressaoCorteFrequencia(minFreq, maxFreq);
             expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
             expressaoDetalhesNGram += "\t\t/>\n";
@@ -134,11 +139,13 @@ public class ArquivoConfiguracao {
             String segundoGram = gram.substring(1);
             expressaoDetalhesNGram = "\t\t<gram n=\"" + primeiroGram + "\"\n";
             expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
+            expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
             expressaoDetalhesNGram += getExpressaoCorteFrequencia(minFreq, maxFreq);
             expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
             expressaoDetalhesNGram += "\t\t/>\n";
             expressaoDetalhesNGram += "\t\t<gram n=\"" + segundoGram + "\"\n";
             expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
+            expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
             expressaoDetalhesNGram += getExpressaoCorteFrequencia(minFreq, maxFreq);
             expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
             expressaoDetalhesNGram += "\t\t/>\n";
@@ -150,10 +157,10 @@ public class ArquivoConfiguracao {
     private String getExpressaoCorteArquivo(String minFile, String maxFile) {
         String expressaoCorteArquivo = "";
         if (!minFile.equals("0")) {
-            expressaoCorteArquivo += "\t\t\tminfiles=\"" + minFile + "\"\n";
+            expressaoCorteArquivo += "\t\t\t minfiles=\"" + minFile + "\"\n";
         }
         if (!maxFile.equals("0")) {
-            expressaoCorteArquivo += "\t\t\tmaxfiles=\"" + maxFile + "\"\n";
+            expressaoCorteArquivo += "\t\t\t maxfiles=\"" + maxFile + "\"\n";
         }
         return expressaoCorteArquivo;
     }
@@ -161,21 +168,30 @@ public class ArquivoConfiguracao {
     private String getExpressaoCorteFrequencia(String minFreq, String maxFreq) {
         String expressaoCorteFrequencia = "";
         if (!minFreq.equals("0")) {
-            expressaoCorteFrequencia += "\t\t\tmin=\"" + minFreq + "\"\n";
+            expressaoCorteFrequencia += "\t\t\t min=\"" + minFreq + "\"\n";
         }
         if (!maxFreq.equals("0")) {
-            expressaoCorteFrequencia += "\t\t\tmax=\"" + maxFreq + "\"\n";
+            expressaoCorteFrequencia += "\t\t\t max=\"" + maxFreq + "\"\n";
         }
         return expressaoCorteFrequencia;
     }
 
+    private String getExpressaoCorteDesvioPadrao(String desvioPadrao) {
+        String parametro = "";
+
+        if (!desvioPadrao.equals("0")) {
+            parametro += "\t\t\t std_dev=\"" + desvioPadrao + "\"\n";
+        }
+        return parametro;
+    }
+
     private String getExpressaoTermoFrequencia(String termoFrequencia) {
         String parametro;
-        parametro = "\t\t\tmeasure=\"" + termoFrequencia.replace("Smooth", "") + "\"\n";
+        parametro = "\t\t\t measure=\"" + termoFrequencia.replace("Smooth", "") + "\"\n";
         if (termoFrequencia.equals("tfidfSmooth") | termoFrequencia.equals("tflinearSmooth")) {
-            parametro += "\t\t\tsmooth=\"enabled\"\n";
+            parametro += "\t\t\t smooth=\"enabled\"\n";
         } else {
-            parametro += "\t\t\tsmooth=\"disabled\"\n";
+            parametro += "\t\t\t smooth=\"disabled\"\n";
         }
         return parametro;
     }
@@ -194,12 +210,12 @@ public class ArquivoConfiguracao {
 
     private String criarModelo() {
         StringBuilder arquivoConfiguracao = new StringBuilder();
-        arquivoConfiguracao.append("<?xml version=\"1.0\" encoding=\"utf−8\"?>\n");
+        arquivoConfiguracao.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
         arquivoConfiguracao.append("<pretext\n");
-        arquivoConfiguracao.append("\tlang=\"en\"\n");
-        arquivoConfiguracao.append("\tdir=\"textos\"\n");
-        arquivoConfiguracao.append("\tlog=\"pretext.log\"\n");
-        arquivoConfiguracao.append("\tsilence=\"off\">\n\n");
+        arquivoConfiguracao.append("\t lang=\"en\"\n");
+        arquivoConfiguracao.append("\t dir=\"textos\"\n");
+        arquivoConfiguracao.append("\t log=\"pretext.log\"\n");
+        arquivoConfiguracao.append("\t silence=\"off\">\n\n");
         arquivoConfiguracao.append("\t<maid>\n");
         arquivoConfiguracao.append("\t\t<number/>\n");
         arquivoConfiguracao.append("\t\t<html/>\n");
@@ -213,11 +229,11 @@ public class ArquivoConfiguracao {
         arquivoConfiguracao.append("\t\t<quantidadeGram/>\n");
         arquivoConfiguracao.append("\t</ngram>\n\n");
         arquivoConfiguracao.append("\t<report\n");
-        arquivoConfiguracao.append("\t\tngramdir=\"ngraminfo\"\n");
-        arquivoConfiguracao.append("\t\tdiscover=\"discover\"\n");
-        arquivoConfiguracao.append("\t\tgraphics=\"graphics\"\n");
-        arquivoConfiguracao.append("\t\ttaxonomy=\"taxonomia.txt\"\n");
-        arquivoConfiguracao.append("\t\ttranspose=\"disabled\">\n\n");
+        arquivoConfiguracao.append("\t\t ngramdir=\"ngraminfo\"\n");
+        arquivoConfiguracao.append("\t\t discover=\"discover\"\n");
+        arquivoConfiguracao.append("\t\t graphics=\"graphics\"\n");
+        arquivoConfiguracao.append("\t\t taxonomy=\"taxonomia.txt\"\n");
+        arquivoConfiguracao.append("\t\t transpose=\"disabled\">\n\n");
         arquivoConfiguracao.append("\t\t<definicaoGram/>\n");
         arquivoConfiguracao.append("\t</report>\n");
         arquivoConfiguracao.append("</pretext>\n");

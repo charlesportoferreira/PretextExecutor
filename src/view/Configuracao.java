@@ -40,6 +40,7 @@ public class Configuracao extends javax.swing.JFrame {
         rd_individual = new javax.swing.JRadioButton();
         rd_combinado = new javax.swing.JRadioButton();
         rd_individualCombinado = new javax.swing.JRadioButton();
+        ckb_4gram = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         lbl_calculoTermoFrequencia = new javax.swing.JLabel();
         ckb_tf = new javax.swing.JCheckBox();
@@ -58,6 +59,8 @@ public class Configuracao extends javax.swing.JFrame {
         lbl_minFiles = new javax.swing.JLabel();
         ckb_arquivos = new javax.swing.JCheckBox();
         lbl_maxFiles = new javax.swing.JLabel();
+        ckb_stdDev = new javax.swing.JCheckBox();
+        txt_stdDev = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         lbl_stopFiles = new javax.swing.JLabel();
         lbl_baseDados = new javax.swing.JLabel();
@@ -128,6 +131,13 @@ public class Configuracao extends javax.swing.JFrame {
         rd_individualCombinado.setText("individual e combinado");
         rd_individualCombinado.setEnabled(false);
 
+        ckb_4gram.setText("4");
+        ckb_4gram.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ckb_4gramStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -142,12 +152,14 @@ public class Configuracao extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(ckb_3gram)
                 .addGap(18, 18, 18)
+                .addComponent(ckb_4gram)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rd_individual)
                 .addGap(18, 18, 18)
                 .addComponent(rd_combinado)
                 .addGap(18, 18, 18)
                 .addComponent(rd_individualCombinado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +172,8 @@ public class Configuracao extends javax.swing.JFrame {
                     .addComponent(lbl_ngram)
                     .addComponent(rd_individual)
                     .addComponent(rd_combinado)
-                    .addComponent(rd_individualCombinado))
+                    .addComponent(rd_individualCombinado)
+                    .addComponent(ckb_4gram))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -245,6 +258,15 @@ public class Configuracao extends javax.swing.JFrame {
 
         lbl_maxFiles.setText("max:");
 
+        ckb_stdDev.setText("std_dev");
+        ckb_stdDev.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                ckb_stdDevStateChanged(evt);
+            }
+        });
+
+        txt_stdDev.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -260,8 +282,14 @@ public class Configuracao extends javax.swing.JFrame {
                             .addComponent(lbl_minFreq))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_minFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_maxFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txt_minFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ckb_stdDev))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txt_maxFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_stdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbl_calculoTermoFrequencia)
                         .addGap(18, 18, 18)
@@ -315,13 +343,15 @@ public class Configuracao extends javax.swing.JFrame {
                     .addComponent(ckb_arquivos)
                     .addComponent(lbl_minFiles)
                     .addComponent(txt_minFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_minFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_minFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ckb_stdDev))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_maxFreq)
                     .addComponent(txt_maxFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_maxFiles)
-                    .addComponent(txt_maxFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_maxFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_stdDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -495,7 +525,10 @@ public class Configuracao extends javax.swing.JFrame {
 
         return (ckb_1gram.isSelected() && ckb_2gram.isSelected())
                 | (ckb_1gram.isSelected() && ckb_3gram.isSelected())
-                | (ckb_2gram.isSelected() && ckb_3gram.isSelected());
+                | (ckb_2gram.isSelected() && ckb_3gram.isSelected())
+                | (ckb_1gram.isSelected() && ckb_4gram.isSelected())
+                | (ckb_2gram.isSelected() && ckb_4gram.isSelected())
+                | (ckb_3gram.isSelected() && ckb_4gram.isSelected());
     }
 
     private void ckb_1gramStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ckb_1gramStateChanged
@@ -579,11 +612,12 @@ public class Configuracao extends javax.swing.JFrame {
         if (ckb_frequencia.isSelected()) {
             txt_minFreq.setEnabled(true);
             txt_maxFreq.setEnabled(true);
+            ckb_stdDev.setEnabled(false);
 
         } else {
             txt_minFreq.setEnabled(false);
             txt_maxFreq.setEnabled(false);
-
+            ckb_stdDev.setEnabled(true);
         }
     }//GEN-LAST:event_ckb_frequenciaStateChanged
 
@@ -644,11 +678,42 @@ public class Configuracao extends javax.swing.JFrame {
         scriptExecucao += getParametroNGram();
         scriptExecucao += getParametroNomeDirStopList();
         scriptExecucao += getParametroStopFiles();
+        scriptExecucao += getParametroCorteDesvioPadrao();
         scriptExecucao += getParametroTermoFrequencia();
 
         txt_script.setText(scriptExecucao + "\n");
         System.out.println(scriptExecucao);
     }//GEN-LAST:event_btn_CriarScriptActionPerformed
+
+    private void ckb_stdDevStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ckb_stdDevStateChanged
+        if (ckb_stdDev.isSelected()) {
+            txt_stdDev.setEnabled(true);
+            ckb_frequencia.setEnabled(false);
+
+        } else {
+            txt_stdDev.setEnabled(false);
+            ckb_frequencia.setEnabled(true);
+        }
+    }//GEN-LAST:event_ckb_stdDevStateChanged
+
+    private void ckb_4gramStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ckb_4gramStateChanged
+        if (isMaisDeUmGramSelecionado()) {
+            habilitaRadioButtons();
+        } else {
+            desabilitaRadioButtons();
+            selecionaIndividual();
+        }
+    }//GEN-LAST:event_ckb_4gramStateChanged
+
+    private String getParametroCorteDesvioPadrao() {
+        String desvioPadrao = "-d ";
+        if (ckb_stdDev.isSelected()) {
+            desvioPadrao += txt_stdDev.getText();
+        } else {
+            desvioPadrao += "0";
+        }
+        return desvioPadrao + " ";
+    }
 
     private String getParametroTermoFrequencia() {
         String termoFrequencia = "-f ";
@@ -658,7 +723,6 @@ public class Configuracao extends javax.swing.JFrame {
         termoFrequencia += ckb_tfLinear.isSelected() ? "tflinear," : "";
         termoFrequencia += ckb_tfLinearSmooth.isSelected() ? "tflinearSmooth," : "";
         termoFrequencia += ckb_boolean.isSelected() ? "boolean," : "";
-      
 
         termoFrequencia = termoFrequencia.substring(0, termoFrequencia.length() - 1);
 
@@ -732,6 +796,15 @@ public class Configuracao extends javax.swing.JFrame {
         if (ckb_1gram.isSelected() && ckb_3gram.isSelected()) {
             ngram += 13 + ",";
         }
+        if (ckb_1gram.isSelected() && ckb_4gram.isSelected()) {
+            ngram += 14 + ",";
+        }
+        if (ckb_2gram.isSelected() && ckb_4gram.isSelected()) {
+            ngram += 24 + ",";
+        }
+        if (ckb_3gram.isSelected() && ckb_4gram.isSelected()) {
+            ngram += 34 + ",";
+        }
         return ngram;
     }
 
@@ -745,6 +818,9 @@ public class Configuracao extends javax.swing.JFrame {
         }
         if (ckb_3gram.isSelected()) {
             ngram += 3 + ",";
+        }
+         if (ckb_4gram.isSelected()) {
+            ngram += 4 + ",";
         }
         return ngram;
     }
@@ -804,9 +880,11 @@ public class Configuracao extends javax.swing.JFrame {
     private javax.swing.JCheckBox ckb_1gram;
     private javax.swing.JCheckBox ckb_2gram;
     private javax.swing.JCheckBox ckb_3gram;
+    private javax.swing.JCheckBox ckb_4gram;
     private javax.swing.JCheckBox ckb_arquivos;
     private javax.swing.JCheckBox ckb_boolean;
     private javax.swing.JCheckBox ckb_frequencia;
+    private javax.swing.JCheckBox ckb_stdDev;
     private javax.swing.JCheckBox ckb_tf;
     private javax.swing.JCheckBox ckb_tfIdf;
     private javax.swing.JCheckBox ckb_tfIdfSmooth;
@@ -840,6 +918,7 @@ public class Configuracao extends javax.swing.JFrame {
     private javax.swing.JTextField txt_minFiles;
     private javax.swing.JTextField txt_minFreq;
     private javax.swing.JTextArea txt_script;
+    private javax.swing.JTextField txt_stdDev;
     private javax.swing.JTextArea txt_stopFileNames;
     private javax.swing.JTextField txt_stopFiles;
     // End of variables declaration//GEN-END:variables

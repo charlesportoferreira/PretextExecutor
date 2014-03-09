@@ -23,13 +23,14 @@ public class PretextExecutor {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        boolean isIntefaceGraficaAtiva = false;
         String diretorioStopList;
         String[] stopFiles = null;
         String[] ngrams = null;
         String[] cortesFrequencia = null;
         String[] cortesArquivos = null;
         String[] calculoFrequencia = null;
+        String[] corteDesvioPadrao = null;
 
         String nomeBaseDados = "";
 
@@ -69,6 +70,12 @@ public class PretextExecutor {
                     break;
                 case "-v":
                     callConfigurator();
+                    isIntefaceGraficaAtiva = true;
+                    //System.exit(0);
+                    break;
+
+                case "-d":
+                    corteDesvioPadrao = ((String) itr.next()).split(",");
                     break;
                 default:
                     System.out.println("Parametro incorreto: " + argumento);
@@ -84,36 +91,43 @@ public class PretextExecutor {
 //            System.exit(1);
         }
 
-        for (String cf : calculoFrequencia) {
-            parametros.add(new Parametro("cf", cf));
-           // imprimeParametros(calculoFrequencia);
-            for (String corteArquivo : cortesArquivos) {
-                parametros.add(new Parametro("corteArquivo", corteArquivo));
-                //imprimeParametros(cortesArquivos);
-                for (String corteFrequencia : cortesFrequencia) {
-                    parametros.add(new Parametro("corteFrequencia", corteFrequencia));
-                   // imprimeParametros(cortesFrequencia);
-                    for (String stopfile : stopFiles) {
-                        parametros.add(new Parametro("stopFile", stopfile));
-                        //imprimeParametros(stopFiles);
-                        for (String gram : ngrams) {
-                            parametros.add(new Parametro("gram", gram));
-                            //imprimeParametros(ngrams);
-                            //converteArquivoConfiguracao(ngram, min, minFiles, stoplist, nomeBaseDados);
-                            ArquivoConfiguracao ac = new ArquivoConfiguracao(parametros);
-                            //System.exit(0);
-                            executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
-                            String diretorio = System.getProperty("user.dir");
-                            diretorio += "/discover/";
-                            String nomeArquivo = nomeBaseDados + "--" + stopfile + "--" + gram + "gram" + "--" + corteFrequencia + "min" + "--" + corteArquivo + "minfiles" + ".arff";
-                            String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeArquivo + " " + diretorio;
-                            executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
-                            // System.out.println(comando);
-                            // System.out.println(nomeArquivo);
+        if (!isIntefaceGraficaAtiva) {
+            for (String desvio : corteDesvioPadrao) {
+                parametros.add(new Parametro("desvio", desvio));
+                for (String cf : calculoFrequencia) {
+                    parametros.add(new Parametro("cf", cf));
+                    // imprimeParametros(calculoFrequencia);
+                    for (String corteArquivo : cortesArquivos) {
+                        parametros.add(new Parametro("corteArquivo", corteArquivo));
+                        //imprimeParametros(cortesArquivos);
+                        for (String corteFrequencia : cortesFrequencia) {
+                            parametros.add(new Parametro("corteFrequencia", corteFrequencia));
+                            // imprimeParametros(cortesFrequencia);
+                            for (String stopfile : stopFiles) {
+                                parametros.add(new Parametro("stopFile", stopfile));
+                                //imprimeParametros(stopFiles);
+                                for (String gram : ngrams) {
+                                    parametros.add(new Parametro("gram", gram));
+                                    //imprimeParametros(ngrams);
+                                    //converteArquivoConfiguracao(ngram, min, minFiles, stoplist, nomeBaseDados);
+                                    ArquivoConfiguracao ac = new ArquivoConfiguracao(parametros);
+                                    //System.exit(0);
+                                    executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
+                                    String diretorio = System.getProperty("user.dir");
+                                    diretorio += "/discover/";
+                                    String nomeArquivo = nomeBaseDados + "|" + stopfile + "|" + gram + "gram" + "|" + corteFrequencia + "minFreq" + "|" + desvio + "desvio" + "|" + corteArquivo + "minfiles" + "|" + cf + ".arff";
+                                    String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeArquivo + " " + diretorio;
+                                    executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
+                                    // System.out.println(comando);
+                                    // System.out.println(nomeArquivo);
+                                }
+                            }
                         }
                     }
                 }
             }
+            SendMail sendMail = new SendMail();
+            sendMail.sendMail("charlesportoferreira@gmail.com", "charlesportoferreira@gmail.com", "PreText finalizado", "Criação de tabelas de atributo valor prontas");
         }
     }
 
@@ -159,10 +173,14 @@ public class PretextExecutor {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
+
                 new Configuracao().setVisible(true);
+
             }
+
         });
     }
 

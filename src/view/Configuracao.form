@@ -115,12 +115,14 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="ckb_3gram" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="ckb_4gram" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="rd_individual" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="rd_combinado" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="rd_individualCombinado" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -136,6 +138,7 @@
                       <Component id="rd_individual" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rd_combinado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rd_individualCombinado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ckb_4gram" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="26" max="32767" attributes="0"/>
               </Group>
@@ -200,6 +203,14 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JCheckBox" name="ckb_4gram">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="4"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="ckb_4gramStateChanged"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -226,8 +237,16 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txt_minFreq" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
-                              <Component id="txt_maxFreq" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="txt_minFreq" min="-2" pref="176" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="ckb_stdDev" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="txt_maxFreq" min="-2" pref="176" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="txt_stdDev" min="-2" pref="122" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -297,6 +316,7 @@
                       <Component id="lbl_minFiles" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="txt_minFreq" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="txt_minFiles" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="ckb_stdDev" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -304,6 +324,7 @@
                       <Component id="txt_maxFreq" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbl_maxFiles" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txt_maxFiles" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_stdDev" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -423,6 +444,19 @@
         <Component class="javax.swing.JLabel" name="lbl_maxFiles">
           <Properties>
             <Property name="text" type="java.lang.String" value="max:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="ckb_stdDev">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="std_dev"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="ckb_stdDevStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txt_stdDev">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

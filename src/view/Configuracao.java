@@ -788,23 +788,33 @@ public class Configuracao extends javax.swing.JFrame {
     private String getCombinado() {
         String ngram = "";
         if (ckb_1gram.isSelected() && ckb_2gram.isSelected()) {
-            ngram += 12 + ",";
+            ngram += "1-2" + ",";
         }
         if (ckb_2gram.isSelected() && ckb_3gram.isSelected()) {
-            ngram += 23 + ",";
+            ngram += "2-3" + ",";
         }
         if (ckb_1gram.isSelected() && ckb_3gram.isSelected()) {
-            ngram += 13 + ",";
+            ngram += "1-3" + ",";
         }
         if (ckb_1gram.isSelected() && ckb_4gram.isSelected()) {
-            ngram += 14 + ",";
+            ngram += "1-4" + ",";
         }
         if (ckb_2gram.isSelected() && ckb_4gram.isSelected()) {
-            ngram += 24 + ",";
+            ngram += "2-4" + ",";
         }
         if (ckb_3gram.isSelected() && ckb_4gram.isSelected()) {
-            ngram += 34 + ",";
+            ngram += "3-4" + ",";
         }
+        if (ckb_1gram.isSelected() && ckb_2gram.isSelected() && ckb_3gram.isSelected()) {
+            ngram += "1-2-3" + ",";
+        }
+        if (ckb_1gram.isSelected() && ckb_2gram.isSelected() && ckb_4gram.isSelected()) {
+            ngram += "1-2-4" + ",";
+        }
+        if (ckb_2gram.isSelected() && ckb_3gram.isSelected() && ckb_4gram.isSelected()) {
+            ngram += "2-3-4" + ",";
+        }
+
         return ngram;
     }
 
@@ -819,7 +829,7 @@ public class Configuracao extends javax.swing.JFrame {
         if (ckb_3gram.isSelected()) {
             ngram += 3 + ",";
         }
-         if (ckb_4gram.isSelected()) {
+        if (ckb_4gram.isSelected()) {
             ngram += 4 + ",";
         }
         return ngram;

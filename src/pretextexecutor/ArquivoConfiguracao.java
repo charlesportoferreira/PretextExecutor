@@ -79,17 +79,22 @@ public class ArquivoConfiguracao {
     }
 
     private String getExpressaoNGram(String gram) {
-        if (Integer.valueOf(gram) < 10) {
+        if (!gram.contains("-")) {
 
             return "\t\t<gram n=\"" + gram + "\"/>\n";
 
         } else {
-            String primeiroGram = gram.substring(0, 1);
-            String segundoGram = gram.substring(1);
+            String[] grams = gram.split("-");
+            String expressao = "";
+            for (String novaGram : grams) {
+                expressao += "\t\t<gram n=\"" + novaGram + "\"/>\n";
+            }
+            //String primeiroGram = gram.substring(0, 1);
+            //String segundoGram = gram.substring(1);
 
-            return "\t\t<gram n=\"" + primeiroGram + "\"/>\n"
-                    + "\t\t<gram n=\"" + segundoGram + "\"/>\n";
-
+            //return "\t\t<gram n=\"" + primeiroGram + "\"/>\n"
+//                    + "\t\t<gram n=\"" + segundoGram + "\"/>\n";
+            return expressao;
         }
 
     }
@@ -126,8 +131,8 @@ public class ArquivoConfiguracao {
             }
         }
 
-        String expressaoDetalhesNGram;
-        if (Integer.valueOf(gram) < 10) {
+        String expressaoDetalhesNGram = "";
+        if (!gram.contains("-")) {
             expressaoDetalhesNGram = "\t\t<gram n=\"" + gram + "\"\n";
             expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
             expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
@@ -135,20 +140,30 @@ public class ArquivoConfiguracao {
             expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
             expressaoDetalhesNGram += "\t\t/>\n";
         } else {
-            String primeiroGram = gram.substring(0, 1);
-            String segundoGram = gram.substring(1);
-            expressaoDetalhesNGram = "\t\t<gram n=\"" + primeiroGram + "\"\n";
-            expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
-            expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
-            expressaoDetalhesNGram += getExpressaoCorteFrequencia(minFreq, maxFreq);
-            expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
-            expressaoDetalhesNGram += "\t\t/>\n";
-            expressaoDetalhesNGram += "\t\t<gram n=\"" + segundoGram + "\"\n";
-            expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
-            expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
-            expressaoDetalhesNGram += getExpressaoCorteFrequencia(minFreq, maxFreq);
-            expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
-            expressaoDetalhesNGram += "\t\t/>\n";
+            String[] ngrams = gram.split("-");
+            //String primeiroGram = gram.substring(0, 1);
+            //String segundoGram = gram.substring(1);
+            expressaoDetalhesNGram = "";
+            for (String novoGram : ngrams) {
+                expressaoDetalhesNGram += "\t\t<gram n=\"" + novoGram + "\"\n";
+                expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
+                expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
+                expressaoDetalhesNGram += getExpressaoCorteFrequencia(minFreq, maxFreq);
+                expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
+                expressaoDetalhesNGram += "\t\t/>\n";
+            }
+//            expressaoDetalhesNGram = "\t\t<gram n=\"" + primeiroGram + "\"\n";
+//            expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
+//            expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
+//            expressaoDetalhesNGram += getExpressaoCorteFrequencia(minFreq, maxFreq);
+//            expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
+//            expressaoDetalhesNGram += "\t\t/>\n";
+//            expressaoDetalhesNGram += "\t\t<gram n=\"" + segundoGram + "\"\n";
+//            expressaoDetalhesNGram += getExpressaoTermoFrequencia(termoFrequencia);
+//            expressaoDetalhesNGram += getExpressaoCorteDesvioPadrao(corteDesvioPadrao);
+//            expressaoDetalhesNGram += getExpressaoCorteFrequencia(minFreq, maxFreq);
+//            expressaoDetalhesNGram += getExpressaoCorteArquivo(minFile, maxFile);
+//            expressaoDetalhesNGram += "\t\t/>\n";
         }
 
         return expressaoDetalhesNGram;

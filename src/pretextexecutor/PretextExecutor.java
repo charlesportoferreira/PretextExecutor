@@ -112,10 +112,12 @@ public class PretextExecutor {
                                     //converteArquivoConfiguracao(ngram, min, minFiles, stoplist, nomeBaseDados);
                                     ArquivoConfiguracao ac = new ArquivoConfiguracao(parametros);
                                     //System.exit(0);
-                                    executaPrograma("perl Start.pl", "saida.txt", "erro.txt");
                                     String diretorio = System.getProperty("user.dir");
-                                    diretorio += "/discover/";
                                     String nomeArquivo = nomeBaseDados + "|" + stopfile + "|" + gram + "gram" + "|" + corteFrequencia + "minFreq" + "|" + desvio + "desvio" + "|" + corteArquivo + "minfiles" + "|" + cf + ".arff";
+
+                                    executaPrograma("perl Start.pl", "saida.txt", diretorio + "/logs/" + nomeArquivo + "erro.txt");
+
+                                    diretorio += "/discover/";
                                     String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeArquivo + " " + diretorio;
                                     executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
                                     // System.out.println(comando);

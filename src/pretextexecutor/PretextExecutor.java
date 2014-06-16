@@ -202,10 +202,10 @@ public class PretextExecutor {
             Process proc = rt.exec(comando);
 
             // any error message?
-            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR", fosError);
+            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "E--", fosError);
 
             // any output?
-            StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "OUTPUT", fosExit);
+            StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "O--", fosExit);
 
             // kick them off
             errorGobbler.start();

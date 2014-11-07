@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
  * @author charleshenriqueportoferreira
  */
 public class Configuracao extends javax.swing.JFrame {
-
+    
     int ckbSelecionados;
 
     /**
@@ -73,6 +73,12 @@ public class Configuracao extends javax.swing.JFrame {
         btn_selectStopFiles = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btn_CriarScript = new javax.swing.JButton();
+        pnlParametrosWeka = new javax.swing.JPanel();
+        txtCPUs = new javax.swing.JTextField();
+        lblCPUs = new javax.swing.JLabel();
+        lblMemoria = new javax.swing.JLabel();
+        txtMemoria = new javax.swing.JTextField();
+        btnAdicionarScriptWeka = new javax.swing.JButton();
         lbl_Titulo = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -289,40 +295,40 @@ public class Configuracao extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txt_maxFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_stdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txt_stdDev, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbl_maxFiles)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbl_minFiles)
+                                .addGap(21, 21, 21)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txt_minFiles)
+                            .addComponent(txt_maxFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbl_calculoTermoFrequencia)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckb_tf)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckb_tfLinear)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckb_tfIdf)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbl_maxFiles)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbl_minFiles)
-                        .addGap(21, 21, 21)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txt_minFiles)
-                    .addComponent(txt_maxFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(459, 459, 459)
+                                .addComponent(ckb_arquivos))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(658, 658, 658)
+                                .addComponent(ckb_boolean))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbl_calculoTermoFrequencia)
+                                .addGap(18, 18, 18)
+                                .addComponent(ckb_tf)
+                                .addGap(18, 18, 18)
+                                .addComponent(ckb_tfLinear)
+                                .addGap(18, 18, 18)
+                                .addComponent(ckb_tfIdf)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ckb_tfLinearSmooth)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ckb_tfIdfSmooth)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(352, 352, 352)
-                        .addComponent(ckb_tfLinearSmooth)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckb_tfIdfSmooth)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckb_boolean))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(465, 465, 465)
-                        .addComponent(ckb_arquivos)))
-                .addGap(92, 92, 92))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,11 +338,11 @@ public class Configuracao extends javax.swing.JFrame {
                     .addComponent(lbl_calculoTermoFrequencia)
                     .addComponent(ckb_tf)
                     .addComponent(ckb_tfLinear)
-                    .addComponent(ckb_tfIdf)
                     .addComponent(ckb_tfLinearSmooth)
                     .addComponent(ckb_tfIdfSmooth)
-                    .addComponent(ckb_boolean))
-                .addGap(18, 18, 18)
+                    .addComponent(ckb_boolean)
+                    .addComponent(ckb_tfIdf))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(lbl_minFreq)
                     .addComponent(ckb_frequencia)
@@ -395,6 +401,55 @@ public class Configuracao extends javax.swing.JFrame {
             }
         });
 
+        pnlParametrosWeka.setBorder(javax.swing.BorderFactory.createTitledBorder("Parâmetros WEKA"));
+
+        txtCPUs.setEnabled(false);
+
+        lblCPUs.setText("CPUs");
+
+        lblMemoria.setText("Memoria");
+
+        txtMemoria.setEnabled(false);
+
+        btnAdicionarScriptWeka.setText("Adicionar ao Script");
+        btnAdicionarScriptWeka.setEnabled(false);
+        btnAdicionarScriptWeka.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarScriptWekaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlParametrosWekaLayout = new javax.swing.GroupLayout(pnlParametrosWeka);
+        pnlParametrosWeka.setLayout(pnlParametrosWekaLayout);
+        pnlParametrosWekaLayout.setHorizontalGroup(
+            pnlParametrosWekaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlParametrosWekaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlParametrosWekaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMemoria)
+                    .addComponent(lblCPUs))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlParametrosWekaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCPUs, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                    .addComponent(txtMemoria))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(btnAdicionarScriptWeka)
+                .addContainerGap())
+        );
+        pnlParametrosWekaLayout.setVerticalGroup(
+            pnlParametrosWekaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlParametrosWekaLayout.createSequentialGroup()
+                .addGroup(pnlParametrosWekaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMemoria))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(pnlParametrosWekaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCPUs)
+                    .addComponent(txtCPUs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdicionarScriptWeka))
+                .addGap(8, 8, 8))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -413,20 +468,23 @@ public class Configuracao extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addComponent(txt_stopFiles))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_selectStopFiles)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btn_stopFiles)
                         .addGap(18, 18, 18)
-                        .addComponent(lbl_baseDados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_CriarScript)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lbl_baseDados)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txt_BaseDados, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_BaseDados)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btn_BaseDados))
+                            .addComponent(btn_CriarScript)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btn_selectStopFiles)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pnlParametrosWeka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,22 +497,23 @@ public class Configuracao extends javax.swing.JFrame {
                     .addComponent(btn_stopFiles)
                     .addComponent(txt_BaseDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_BaseDados))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)
                         .addGap(18, 18, 18))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
+                                .addGap(33, 33, 33)
                                 .addComponent(jLabel1))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(btn_selectStopFiles)))
-                        .addGap(3, 3, 3)
-                        .addComponent(btn_CriarScript)
-                        .addContainerGap(40, Short.MAX_VALUE))))
+                                .addComponent(btn_CriarScript)
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_selectStopFiles)
+                                    .addComponent(pnlParametrosWeka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         lbl_Titulo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -480,7 +539,7 @@ public class Configuracao extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -499,7 +558,7 @@ public class Configuracao extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,7 +581,7 @@ public class Configuracao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean isMaisDeUmGramSelecionado() {
-
+        
         return (ckb_1gram.isSelected() && ckb_2gram.isSelected())
                 | (ckb_1gram.isSelected() && ckb_3gram.isSelected())
                 | (ckb_2gram.isSelected() && ckb_3gram.isSelected())
@@ -539,16 +598,16 @@ public class Configuracao extends javax.swing.JFrame {
             selecionaIndividual();
         }
     }//GEN-LAST:event_ckb_1gramStateChanged
-
+    
     private void selecionaIndividual() {
         rd_individual.setSelected(true);
     }
-
+    
     private void habilitaRadioButtons() {
         rd_combinado.setEnabled(true);
         rd_individualCombinado.setEnabled(true);
     }
-
+    
     private void desabilitaRadioButtons() {
         rd_combinado.setEnabled(false);
         rd_individualCombinado.setEnabled(false);
@@ -613,7 +672,7 @@ public class Configuracao extends javax.swing.JFrame {
             txt_minFreq.setEnabled(true);
             txt_maxFreq.setEnabled(true);
             ckb_stdDev.setEnabled(false);
-
+            
         } else {
             txt_minFreq.setEnabled(false);
             txt_maxFreq.setEnabled(false);
@@ -635,9 +694,9 @@ public class Configuracao extends javax.swing.JFrame {
         int returnVal = fc_stopList.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc_stopList.getSelectedFile();
-
+            
             txt_stopFiles.setText(file.getName());
-
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -647,9 +706,9 @@ public class Configuracao extends javax.swing.JFrame {
         int returnVal = fc_baseDados.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc_baseDados.getSelectedFile();
-
+            
             txt_BaseDados.setText(file.getName());
-
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -664,7 +723,7 @@ public class Configuracao extends javax.swing.JFrame {
                 fileNames += file1.getName() + "\n";
             }
             txt_stopFileNames.setText(fileNames);
-
+            
         } else {
             System.out.println("File access cancelled by user.");
         }
@@ -680,16 +739,19 @@ public class Configuracao extends javax.swing.JFrame {
         scriptExecucao += getParametroStopFiles();
         scriptExecucao += getParametroCorteDesvioPadrao();
         scriptExecucao += getParametroTermoFrequencia();
-
+        
         txt_script.setText(scriptExecucao + "\n");
         System.out.println(scriptExecucao);
+        txtCPUs.setEnabled(true);
+        txtMemoria.setEnabled(true);
+        btnAdicionarScriptWeka.setEnabled(true);
     }//GEN-LAST:event_btn_CriarScriptActionPerformed
 
     private void ckb_stdDevStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ckb_stdDevStateChanged
         if (ckb_stdDev.isSelected()) {
             txt_stdDev.setEnabled(true);
             ckb_frequencia.setEnabled(false);
-
+            
         } else {
             txt_stdDev.setEnabled(false);
             ckb_frequencia.setEnabled(true);
@@ -705,6 +767,16 @@ public class Configuracao extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ckb_4gramStateChanged
 
+    private void btnAdicionarScriptWekaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarScriptWekaActionPerformed
+        String scriptAdicinal = " && cd discover && java -jar wekaExecutor.jar -m "
+                + txtMemoria.getText() + " -c "
+                + txtCPUs.getText()
+                + " && cd .. && java -jar GeraTabelaResultado.jar \n";   
+        String scriptAnterior = txt_script.getText();
+        scriptAnterior = scriptAnterior.replace("\n", "");
+        txt_script.setText(scriptAnterior + scriptAdicinal);
+    }//GEN-LAST:event_btnAdicionarScriptWekaActionPerformed
+    
     private String getParametroCorteDesvioPadrao() {
         String desvioPadrao = "-d ";
         if (ckb_stdDev.isSelected()) {
@@ -714,7 +786,7 @@ public class Configuracao extends javax.swing.JFrame {
         }
         return desvioPadrao + " ";
     }
-
+    
     private String getParametroTermoFrequencia() {
         String termoFrequencia = "-f ";
         termoFrequencia += ckb_tf.isSelected() ? "tf," : "";
@@ -723,12 +795,12 @@ public class Configuracao extends javax.swing.JFrame {
         termoFrequencia += ckb_tfLinear.isSelected() ? "tflinear," : "";
         termoFrequencia += ckb_tfLinearSmooth.isSelected() ? "tflinearSmooth," : "";
         termoFrequencia += ckb_boolean.isSelected() ? "boolean," : "";
-
+        
         termoFrequencia = termoFrequencia.substring(0, termoFrequencia.length() - 1);
-
+        
         return termoFrequencia;
     }
-
+    
     private String getParametroCorteFrequencia() {
         String corteFrequencia = "-mf ";
         if (ckb_frequencia.isSelected()) {
@@ -742,10 +814,10 @@ public class Configuracao extends javax.swing.JFrame {
         }
         //retira a virgula do final
         corteFrequencia = corteFrequencia.substring(0, corteFrequencia.length() - 1);
-
+        
         return corteFrequencia + " ";
     }
-
+    
     private String getParametroCorteArquivo() {
         String corteArquivo = "-ma ";
         if (ckb_arquivos.isSelected()) {
@@ -759,18 +831,18 @@ public class Configuracao extends javax.swing.JFrame {
         }
         //retira a virgula do final
         corteArquivo = corteArquivo.substring(0, corteArquivo.length() - 1);
-
+        
         return corteArquivo + " ";
     }
-
+    
     private String getParametroBaseDados() {
         return "-b " + txt_BaseDados.getText() + " ";
     }
-
+    
     private String getParametroNomeDirStopList() {
         return "-sl " + txt_stopFiles.getText() + " ";
     }
-
+    
     private String getParametroNGram() {
         String ngram = "-g ";
         if (rd_individual.isSelected()) {
@@ -784,7 +856,7 @@ public class Configuracao extends javax.swing.JFrame {
         }
         return ngram.substring(0, ngram.length() - 1) + " ";
     }
-
+    
     private String getCombinado() {
         String ngram = "";
         if (ckb_1gram.isSelected() && ckb_2gram.isSelected()) {
@@ -808,16 +880,19 @@ public class Configuracao extends javax.swing.JFrame {
         if (ckb_1gram.isSelected() && ckb_2gram.isSelected() && ckb_3gram.isSelected()) {
             ngram += "1-2-3" + ",";
         }
+        if (ckb_1gram.isSelected() && ckb_2gram.isSelected() && ckb_3gram.isSelected() && ckb_4gram.isSelected()) {
+            ngram += "1-2-3-4" + ",";
+        }
         if (ckb_1gram.isSelected() && ckb_2gram.isSelected() && ckb_4gram.isSelected()) {
             ngram += "1-2-4" + ",";
         }
         if (ckb_2gram.isSelected() && ckb_3gram.isSelected() && ckb_4gram.isSelected()) {
             ngram += "2-3-4" + ",";
         }
-
+        
         return ngram;
     }
-
+    
     private String getIndividual() {
         String ngram = "";
         if (ckb_1gram.isSelected()) {
@@ -834,18 +909,18 @@ public class Configuracao extends javax.swing.JFrame {
         }
         return ngram;
     }
-
+    
     private String getParametroStopFiles() {
         String stopFiles = "-sf " + txt_stopFileNames.getText().replace("\n", ",");
         return stopFiles.substring(0, stopFiles.length() - 1) + " ";
     }
-
+    
     private boolean isAlgumTermoFrequenciaSelecionado() {
         return ckb_tf.isSelected() | ckb_boolean.isSelected()
                 | ckb_tfIdf.isSelected() | ckb_tfIdfSmooth.isSelected()
                 | ckb_tfLinear.isSelected() | ckb_tfLinearSmooth.isSelected();
     }
-
+    
     private void selecioneTFIDF() {
         ckb_tfIdf.setSelected(true);
     }
@@ -881,6 +956,7 @@ public class Configuracao extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdicionarScriptWeka;
     private javax.swing.JButton btn_BaseDados;
     private javax.swing.JButton btn_CriarScript;
     private javax.swing.JButton btn_selectStopFiles;
@@ -910,6 +986,8 @@ public class Configuracao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCPUs;
+    private javax.swing.JLabel lblMemoria;
     private javax.swing.JLabel lbl_Titulo;
     private javax.swing.JLabel lbl_baseDados;
     private javax.swing.JLabel lbl_calculoTermoFrequencia;
@@ -919,9 +997,12 @@ public class Configuracao extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_minFreq;
     private javax.swing.JLabel lbl_ngram;
     private javax.swing.JLabel lbl_stopFiles;
+    private javax.swing.JPanel pnlParametrosWeka;
     private javax.swing.JRadioButton rd_combinado;
     private javax.swing.JRadioButton rd_individual;
     private javax.swing.JRadioButton rd_individualCombinado;
+    private javax.swing.JTextField txtCPUs;
+    private javax.swing.JTextField txtMemoria;
     private javax.swing.JTextField txt_BaseDados;
     private javax.swing.JTextField txt_maxFiles;
     private javax.swing.JTextField txt_maxFreq;

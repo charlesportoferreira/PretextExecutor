@@ -113,12 +113,15 @@ public class PretextExecutor {
                                     ArquivoConfiguracao ac = new ArquivoConfiguracao(parametros);
                                     //System.exit(0);
                                     String diretorio = System.getProperty("user.dir");
-                                    String nomeArquivo = nomeBaseDados + "|" + stopfile + "|" + gram + "gram" + "|" + corteFrequencia + "minFreq" + "|" + desvio + "desvio" + "|" + corteArquivo + "minfiles" + "|" + cf + ".arff";
+                                    //String nomeArquivo = nomeBaseDados + "|" + stopfile + "|" + gram + "gram" + "|" + corteFrequencia + "minFreq" + "|" + desvio + "desvio" + "|" + corteArquivo + "minfiles" + "|" + cf + ".arff";
+                                    //String nomeArquivo = nomeBaseDados +  "|" + gram + "gram" + "|" + corteFrequencia + "minFreq" + "|" + desvio + "desvio" + "|" + corteArquivo + "minfiles" + "|" + cf + ".arff";
+                                    String nomeArquivo = "arquivo.arff";
 
                                     executaPrograma("perl Start.pl", "saida.txt", diretorio + "/logs/" + nomeArquivo + "erro.txt");
 
                                     diretorio += "/discover/";
-                                    String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeArquivo + " " + diretorio;
+                                    //String comando = "java -jar " + diretorio + "PretextTOWeka.jar " + nomeArquivo + " " + diretorio;
+                                     String comando = "java -jar " + "PretextTOWeka.jar" ;
                                     executaPrograma(comando, "log_Saida.txt", "log_Erro.txt");
                                     // System.out.println(comando);
                                     // System.out.println(nomeArquivo);
@@ -128,8 +131,8 @@ public class PretextExecutor {
                     }
                 }
             }
-            SendMail sendMail = new SendMail();
-            sendMail.sendMail("charlesportoferreira@gmail.com", "charlesportoferreira@gmail.com", "PreText finalizado", "Criação de tabelas de atributo valor prontas");
+            //SendMail sendMail = new SendMail();
+            //sendMail.sendMail("charlesportoferreira@gmail.com", "charlesportoferreira@gmail.com", "PreText finalizado", "Criação de tabelas de atributo valor prontas");
         }
     }
 

@@ -220,7 +220,23 @@ public class ArquivoConfiguracao {
     }
 
     private String getExpressaoStopfiles(String stopFile) {
-        return "\t\t\t<stopfile>" + stopFile + "</stopfile>\n";
+        if (!stopFile.contains("-")) {
+            return "\t\t\t<stopfile>" + stopFile + "</stopfile>\n";
+        } else {
+//            System.out.println(stopFile + " *******************");
+            String[] stopfiles = stopFile.split("-");
+            String expressao = "";
+            for (String sf : stopfiles) {
+//                System.out.println(sf);
+                expressao += "\t\t\t<stopfile>" + sf + "</stopfile>\n";
+            }
+            //String primeiroGram = gram.substring(0, 1);
+            //String segundoGram = gram.substring(1);
+
+            //return "\t\t<gram n=\"" + primeiroGram + "\"/>\n"
+//                    + "\t\t<gram n=\"" + segundoGram + "\"/>\n";
+            return expressao;
+        }
     }
 
     private String criarModelo() {

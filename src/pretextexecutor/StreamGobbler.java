@@ -41,7 +41,7 @@ class StreamGobbler extends Thread {
                 }
                 
                 //Essa linha faz imprimir a saida do programa no terminal
-                System.out.println(type + ">" + line);
+               // System.out.println(type + ">" + line);
             }
             if (pw != null) {
                 pw.flush();

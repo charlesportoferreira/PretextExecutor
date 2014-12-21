@@ -216,7 +216,7 @@ public class PretextExecutor {
 
             // any error???
             int exitVal = proc.waitFor();
-            System.out.println("ExitValue: " + exitVal);
+           // System.out.println("ExitValue: " + exitVal);
             // fos.flush();
             // fos.close();        
         } catch (IOException | InterruptedException t) {
